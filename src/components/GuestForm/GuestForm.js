@@ -14,6 +14,7 @@ function GuestForm(props){
             setNewGuestMeal(false);
     
             props.getGuests();
+            props.updateCount()
         })
         .catch(err => {
             alert('Error Adding Guest');

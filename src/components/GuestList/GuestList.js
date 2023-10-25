@@ -1,6 +1,8 @@
 import React from 'react';
+import Guest from '../Guest/Guest';
 
 function GuestList(props){
+
     return(
         <>
             <h2>Guest List</h2>
@@ -12,12 +14,9 @@ function GuestList(props){
                 </tr>
                 </thead>
                 <tbody>
-                {props.guestList.map(guest => (
-                    <tr key={guest.id}>
-                    <td>{guest.name}</td>
-                    <td>{String(guest.kidsMeal)}</td>
-                    </tr>
-                ))}
+                    {props.guestList.map(guest => (
+                        <Guest key={guest.id} updateCount={props.updateCount} getGuests={props.getGuests} guest={guest}/>
+                    ))}
                 </tbody>
             </table>
       </>

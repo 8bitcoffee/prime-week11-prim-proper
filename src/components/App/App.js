@@ -6,20 +6,21 @@ import Footer from '../Footer/Footer';
 import GuestList from '../GuestList/GuestList';
 import DinnerSupplies from '../DinnerSupplies/DinnerSupplies';
 import GuestForm from '../GuestForm/GuestForm';
+import PartyLeader from '../PartyLeader/PartyLeader';
 
 function App() {
   let [guestList, setGuestList] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const updateCount = () => {
+    setCount(guestList.length*2);
+  }
   
-
-  //On load, get guests
-  useEffect(() => {
-    getGuests()
-  }, [])
-
   const getGuests = () => {
     axios.get('/guests')
       .then(response => {
-        setGuestList(response.data)
+        setGuestList(response.data);
+        updateCount();
       })
       .catch(err => {
         alert('error getting guests');
@@ -27,14 +28,22 @@ function App() {
       })
   }
 
+  //On load, get guests
+  useEffect(() => {
+    getGuests()
+  }, []);
+
+  useEffect(() => {
+    updateCount()
+  }, []);
+
   return (
     <div className="App">
       <Header/>
-      <h2>Party Leader</h2>
-      {guestList[0] && <h3>{guestList[0].name}</h3>}
-      <GuestForm getGuests={getGuests}/>
-      <GuestList guestList={guestList}/>
-      <DinnerSupplies guestList={guestList}/>
+      <PartyLeader leader={guestList[0]}/>
+      <GuestForm updateCount={updateCount} getGuests={getGuests}/>
+      <GuestList updateCount={updateCount} getGuests={getGuests} guestList={guestList}/>
+      <DinnerSupplies count={count} guestList={guestList}/>
       <Footer/>
     </div>
   );

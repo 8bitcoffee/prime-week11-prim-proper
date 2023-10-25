@@ -1,18 +1,14 @@
 import React from 'react';
+import SilverWare from '../SilverWare/SilverWare';
 
 function DinnerSupplies(props){
+
     return(
         <>
             <h2>Dinner Supplies</h2>
-            <div>
-                Spoons: {props.guestList.length * 2}
-            </div>
-            <div>
-                Forks: {props.guestList.length * 2}
-            </div>
-            <div>
-                Knives: {props.guestList.length * 2}
-            </div>
+            <SilverWare name="Spoons" count={props.count}/>
+            <SilverWare name="Forks" count={props.count}/>
+            <SilverWare name="Knives" count={props.count}/>
         </>
 
     )
